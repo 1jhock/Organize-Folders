@@ -2,22 +2,23 @@ import os
 from os import listdir
 from os.path import isfile, join, splitext, exists, isdir
 
-
-folderVar = '/mnt/c/Users/jackb/Desktop/python-projects/sample'
+folderVar = '/mnt/c/Users/jackb/Downloads'
 os.chdir(folderVar)
-onlyfiles = [ f for f in listdir(folderVar) if isfile(join(folderVar, f))]
+onlyFiles = [ f for f in listdir(folderVar) if isfile(join(folderVar, f))]
 
+if(len(onlyFiles) > 0):
+	for file in onlyFiles:
+		folder = splitext(file)[1][1:]
 
-for file in onlyfiles:
-	folder = splitext(file)[1][1:]
+		if(not exists(join(folderVar, folder.upper()))):
+			os.makedirs(folder.upper())
+			print('[Folder] ' + folder.upper() + ' folder is created.')
 
+		os.rename(join(folderVar, file), join(join(folderVar, folder.upper()) , file))
+		print('[File] ' + file + ' is moved to ' + join(folderVar, folder.upper()))
+else:
+	print('You folder is already clean.')
 
-	if(not exists(join(folderVar, folder.upper()))):
-		os.makedirs(folder.upper())
-		print(folder.upper() + ' folder is created')
-
-	os.rename(join(folderVar, file), join(join(folderVar, folder.upper()) , file))
-	print(file + ' is moved to ' + join(folderVar, folder.upper()))
 
 	
 
